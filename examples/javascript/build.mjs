@@ -6,7 +6,6 @@ const { component } = await componentize(
     {
         witPath: "../wit",
         worldName: "proxy",
-        preview2Adapter: "../../adapters/fd1e948d/wasi_snapshot_preview1.reactor.wasm",
         enableStdout: true,
     }
 );

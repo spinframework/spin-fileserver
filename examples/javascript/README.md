@@ -11,28 +11,18 @@ component for serving static files.
 - [Spin v2.0+](https://developer.fermyon.com/spin/install)
 - [Rust](https://rustup.rs/)
 - [cargo-component](https://github.com/bytecodealliance/cargo-component)
-- [wasm-tools](https://github.com/bytecodealliance/wasm-tools/)
-  - Note that you'll need [this fork](https://github.com/dicej/wasm-tools/tree/wasm-compose-resource-imports) until [this PR](https://github.com/bytecodealliance/wasm-tools/pull/1261) has been merged and released.
+- [wac](https://github.com/bytecodealliance/wac)
 - [NodeJS](https://nodejs.org/en/download)
 - [componentize-js](https://github.com/dicej/componentize-js)
 - [curl](https://curl.se/download.html) or a web browser for testing
   
 Once you have Rust and NodeJS installed, the following should give you everything else:
 
-*NOTE*: Until https://github.com/bytecodealliance/componentize-js/pull/69 has
-been merged, you'll need to build and install `componentize-js` from source
-using
-https://github.com/dicej/componentize-js/tree/imported-resource-destructors
-instead of the `npm install` command below.  See the README.md in that
-repository for instructions.
-
 ```shell
 rustup target add wasm32-wasi
 cargo install cargo-component
-cargo install --locked --git https://github.com/dicej/wasm-tools \
-    --branch wasm-compose-resource-imports wasm-tools
-# See NOTE above for installing `componentize-js`
-# npm install @bytecodealliance/componentize-js
+cargo install wac-cli
+npm install -g @bytecodealliance/jco @bytecodealliance/componentize-js
 ```
 
 ## Building and Running
