@@ -1,5 +1,5 @@
 use {
-    bindings::wasi::http0_2_0::incoming_handler,
+    bindings::wasi::http::incoming_handler,
     futures::SinkExt,
     spin_sdk::{
         http::{Fields, IncomingRequest, Method, OutgoingResponse, ResponseOutparam},
