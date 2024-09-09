@@ -21,10 +21,8 @@ mod bindings {
 async fn handle_request(request: IncomingRequest, response_out: ResponseOutparam) {
     match (request.method(), request.path_with_query().as_deref()) {
         (Method::Get, Some("/hello")) => {
-            let fields = Fields::new();
-            fields
-                .append(&"content-type".to_owned(), &b"text/plain".to_vec())
-                .unwrap();
+            let fields =
+                Fields::from_list(&[("content-type".to_owned(), b"text/plain".to_vec())]).unwrap();
             let response = OutgoingResponse::new(fields);
 
             let mut body = response.take_body();

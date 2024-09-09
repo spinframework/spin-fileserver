@@ -235,10 +235,7 @@ async fn handle_request(req: IncomingRequest, res_out: ResponseOutparam) {
         .unwrap_or(b"");
     match FileServer::make_response(path, enc, if_none_match) {
         Ok((status, headers, reader)) => {
-            let fields = Fields::new();
-            for (name, value) in headers {
-                let _ = fields.append(&name, &value);
-            }
+            let fields = Fields::from_list(&headers).unwrap();
             let res = OutgoingResponse::new(fields);
             let _ = res.set_status_code(status.as_u16());
             let mut body = res.take_body();

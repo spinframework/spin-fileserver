@@ -14,7 +14,7 @@ component for serving static files.
 - [wac](https://github.com/bytecodealliance/wac)
 - [Python](https://www.python.org/downloads/) 3.11 or later
 - [pip](https://pip.pypa.io/en/stable/installation/)
-- [componentize-py](https://pypi.org/project/componentize-py/)
+- [componentize-py](https://pypi.org/project/componentize-py/) 0.13.x
 - [curl](https://curl.se/download.html) or a web browser for testing
   
 Once you have Rust, Python, and pip installed, the following should give you everything else:
@@ -23,7 +23,7 @@ Once you have Rust, Python, and pip installed, the following should give you eve
 rustup target add wasm32-wasi
 cargo install cargo-component
 cargo install wac-cli
-pip install componentize-py
+pip install componentize-py=0.13.5
 ```
 
 ## Building and Running
