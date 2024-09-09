@@ -11,8 +11,7 @@ component for serving static files.
 - [Spin v2.0+](https://developer.fermyon.com/spin/install)
 - [Rust](https://rustup.rs/), including the `wasm32-wasi` target
 - [cargo-component](https://github.com/bytecodealliance/cargo-component)
-- [wasm-tools](https://github.com/bytecodealliance/wasm-tools/)
-  - Note that you'll need [this fork](https://github.com/dicej/wasm-tools/tree/wasm-compose-resource-imports) until [this PR](https://github.com/bytecodealliance/wasm-tools/pull/1261) has been merged and released.
+- [wac](https://github.com/bytecodealliance/wac)
 - [curl](https://curl.se/download.html) or a web browser for testing
   
 Once you have Rust installed, the following should give you everything else:
@@ -20,8 +19,7 @@ Once you have Rust installed, the following should give you everything else:
 ```shell
 rustup target add wasm32-wasi
 cargo install cargo-component
-cargo install --locked --git https://github.com/dicej/wasm-tools \
-    --branch wasm-compose-resource-imports wasm-tools
+cargo install wac-cli
 ```
 
 ## Building and Running

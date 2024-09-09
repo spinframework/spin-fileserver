@@ -1,5 +1,5 @@
-import { handle as spinFileserverHandle } from "wasi:http/incoming-handler@0.2.0-rc-2023-10-18"
-import { OutgoingResponse, ResponseOutparam, OutgoingBody, Fields } from "wasi:http/types@0.2.0-rc-2023-10-18"
+import { handle as spinFileserverHandle } from "wasi:http/incoming-handler@0.2.0"
+import { OutgoingResponse, ResponseOutparam, OutgoingBody, Fields } from "wasi:http/types@0.2.0"
 
 const encoder = new TextEncoder()
 const disposeSymbol = Symbol.dispose || Symbol.for('dispose')
@@ -10,14 +10,13 @@ function handle(request, responseOut) {
 
     if (method.tag === "get") {
         if (path === "/hello") {
-            const response = new OutgoingResponse(
-                200,
-                new Fields([["content-type", encoder.encode("text/plain")]])
-            )
-            
+            const fields = new Fields()
+            fields.append("content-type", encoder.encode("text/plain"))
+            const response = new OutgoingResponse(fields)
+
             const responseBody = response.write()
             ResponseOutparam.set(responseOut, { tag: "ok", val: response })
-            
+
             const responseStream = responseBody.write()
             responseStream.blockingWriteAndFlush(encoder.encode("Hello, world!"))
             responseStream[disposeSymbol]()
@@ -26,7 +25,8 @@ function handle(request, responseOut) {
             spinFileserverHandle(request, responseOut)
         }
     } else {
-        const response = new OutgoingResponse(400, new Fields([]))
+        const response = new OutgoingResponse(new Fields([]))
+        response.setSatusCode(400)
         ResponseOutparam.set(responseOut, { tag: "ok", val: response })
         OutgoingBody.finish(response.write())
     }

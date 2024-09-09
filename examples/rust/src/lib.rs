@@ -12,9 +12,7 @@ mod bindings {
         path: "../wit",
         world: "delegate",
         with: {
-            "wasi:http/types@0.2.0-rc-2023-10-18": spin_sdk::wit::wasi::http::types,
-            "wasi:io/streams@0.2.0-rc-2023-10-18": spin_sdk::wit::wasi::io::streams,
-            "wasi:io/poll@0.2.0-rc-2023-10-18": spin_sdk::wit::wasi::io,
+            "wasi:http/types@0.2.0": ::spin_sdk::wit::wasi::http::types,
         }
     });
 }
@@ -23,10 +21,9 @@ mod bindings {
 async fn handle_request(request: IncomingRequest, response_out: ResponseOutparam) {
     match (request.method(), request.path_with_query().as_deref()) {
         (Method::Get, Some("/hello")) => {
-            let response = OutgoingResponse::new(
-                200,
-                &Fields::new(&[("content-type".to_string(), b"text/plain".to_vec())]),
-            );
+            let fields =
+                Fields::from_list(&[("content-type".to_owned(), b"text/plain".to_vec())]).unwrap();
+            let response = OutgoingResponse::new(fields);
 
             let mut body = response.take_body();
 
@@ -43,7 +40,9 @@ async fn handle_request(request: IncomingRequest, response_out: ResponseOutparam
         }
 
         _ => {
-            response_out.set(OutgoingResponse::new(405, &Fields::new(&[])));
+            let response = OutgoingResponse::new(Fields::new());
+            response.set_status_code(405).unwrap();
+            response_out.set(response);
         }
     }
 }
