@@ -19,7 +19,7 @@ and [NGINX Unit](https://unit.nginx.org/).
 
 Prerequisites:
 
-- [Rust](https://www.rust-lang.org/) at [1.72+](https://www.rust-lang.org/tools/install) with the `wasm32-wasi` target configured
+- [Rust](https://www.rust-lang.org/) at [1.72+](https://www.rust-lang.org/tools/install) with the `wasm32-wasip1` target configured
 - [cargo-component](https://github.com/bytecodealliance/cargo-component)
 - [Spin v2.0](https://github.com/fermyon/spin) to run the component/examples
 
@@ -36,7 +36,7 @@ See the [examples](./examples) directory for examples of using and composing `sp
 Prerequisites:
 
 - [Rust](https://www.rust-lang.org/) at
-  [1.72+](https://www.rust-lang.org/tools/install) with the `wasm32-wasi` target
+  [1.72+](https://www.rust-lang.org/tools/install) with the `wasm32-wasip1` target
   configured
 
 Running test cases:
@@ -84,7 +84,7 @@ component = "fs"
 
 # For more on configuring a component, see: https://developer.fermyon.com/spin/writing-apps
 [component.fs]
-source = "target/wasm32-wasi/release/spin_static_fs.wasm"
+source = "target/wasm32-wasip1/release/spin_static_fs.wasm"
 files = [{ source = "", destination = "/" }]
 [component.fs.build]
 command = "make"
@@ -145,7 +145,7 @@ is useful for Single Page Applications that use view routers on the front-end li
 ```toml
 # For more on configuring a component, see: https://developer.fermyon.com/spin/writing-apps#adding-environment-variables-to-components
 [component.fs]
-source = "target/wasm32-wasi/release/spin_static_fs.wasm"
+source = "target/wasm32-wasip1/release/spin_static_fs.wasm"
 files = [{ source = "test", destination = "/" }]
 environment = { FALLBACK_PATH = "index.html" }
 ```
@@ -157,7 +157,7 @@ You can configure a `CUSTOM_404_PATH` environment variable and point to a file t
 ```toml
 # For more on configuring a component, see: https://developer.fermyon.com/spin/writing-apps#adding-environment-variables-to-components
 [component.fs]
-source = "target/wasm32-wasi/release/spin_static_fs.wasm"
+source = "target/wasm32-wasip1/release/spin_static_fs.wasm"
 files = [{ source = "test", destination = "/" }]
 environment = { CUSTOM_404_PATH = "404.html" }
 ```
