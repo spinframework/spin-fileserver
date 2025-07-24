@@ -381,13 +381,20 @@ impl FileServer {
 
     /// Return the media type of the file based on the path.
     fn mime(path: &str) -> Option<String> {
-        match path {
+        let mut mime = match path {
             FAVICON_ICO_FILENAME => mime_guess::from_ext("ico"),
             FAVICON_PNG_FILENAME => mime_guess::from_ext("png"),
             _ => mime_guess::from_path(path),
         }
-        .first()
-        .map(|m| m.to_string())
+        .first();
+
+        if mime.is_none() {
+            if let FileServerPath::Physical(p) = Self::resolve(path) {
+                mime = mime_guess::from_path(&p).first();
+            }
+        }
+
+        mime.map(|m| m.to_string())
     }
 
     fn make_headers(path: &str, enc: SupportedEncoding, etag: &str) -> Vec<(String, Vec<u8>)> {
