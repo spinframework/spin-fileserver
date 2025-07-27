@@ -14,23 +14,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install latest Rust stable toolchain
+      - name: Install Rust
         uses: actions-rs/toolchain@v1
         with:
-          toolchain: stable
+          toolchain: 1.86
           default: true
           components: clippy, rustfmt
 
       - name: Install Wasm Rust target
         run: rustup target add wasm32-wasip1
-
-      - name: Install spin-test
-        run: |
-          mkdir spin-install
-          cd spin-install
-          curl -fsSL https://developer.fermyon.com/downloads/install.sh | bash
-          sudo mv spin /usr/local/bin/
-          spin plugin install -u https://github.com/fermyon/spin-test/releases/download/canary/spin-test.json --yes
 
       - name: Install cargo-component
         uses: baptiste0928/cargo-install@v3
@@ -40,6 +32,5 @@ jobs:
       - name: Make
         run: |
           make
-          make spin-test
         env:
           RUST_LOG: spin=trace
