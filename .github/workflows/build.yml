@@ -17,12 +17,17 @@ jobs:
       - name: Install Rust
         uses: actions-rs/toolchain@v1
         with:
-          toolchain: 1.86
+          toolchain: 1.88
           default: true
           components: clippy, rustfmt
 
       - name: Install Wasm Rust target
         run: rustup target add wasm32-wasip1
+
+      - name: audit dependencies
+        run: |
+          cargo install cargo-audit --locked
+          cargo audit
 
       - name: Install cargo-component
         uses: baptiste0928/cargo-install@v3

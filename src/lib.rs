@@ -154,7 +154,7 @@ impl fmt::Display for SupportedEncoding {
             Self::None => "<none>",
         };
 
-        write!(f, "{}", header_content)?;
+        write!(f, "{header_content}")?;
         Ok(())
     }
 }
